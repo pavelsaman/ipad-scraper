@@ -1,0 +1,17 @@
+{
+  "name": "ipad-scraper",
+  "version": "1.0.0",
+  "description": "Scrape iPad prices on Czech e-shops",
+  "main": "scrape.js",
+  "scripts": {
+    "s": "node scrape.js"
+  },
+  "keywords": [],
+  "author": "Pavel Saman",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^5.4.1",
+    "sqlite": "^4.0.17",
+    "sqlite3": "^5.0.0"
+  }
+}
