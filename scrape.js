@@ -4,8 +4,7 @@ const sqlite = require('sqlite');
 
 const config = require('./config.json');
 const pagesToScrape = require('./pagesToScrape.json');
-
-const dbFile = './prices.db';
+const dbFile = config.dbFile;
 const date = new Date();
 
 const getRidOfSpecialChars = (arr) => {
@@ -18,12 +17,14 @@ const getRidOfSpecialChars = (arr) => {
     return newArr;
 };
 
-const savePrices = async (priceObj) => {
-    const db = await sqlite.open({
+const openDB = async function () {
+    return await sqlite.open({
         filename: dbFile,
         driver: sqlite3.Database
     });
-    
+};
+
+const savePrices = async (priceObj, db) => {    
     for (let p of priceObj.prices) {
         await db.run(
             'INSERT INTO Prices (name, company, url, price, datetime) VALUES (?, ?, ?, ?, ?)',
@@ -34,8 +35,6 @@ const savePrices = async (priceObj) => {
             date.toISOString()
         );
     }
-
-    await db.close();
 }
 
 (async () => {
@@ -43,6 +42,8 @@ const savePrices = async (priceObj) => {
     const browser = await puppeteer.launch(config.browserConfig);
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
+
+    const db = await openDB();
 
     for (let p of pagesToScrape) {
 
@@ -52,10 +53,16 @@ const savePrices = async (priceObj) => {
         ]);        
 
         let prices = await page.$$eval(p.priceEl, s => s.map(t => t.innerHTML));
-        prices = getRidOfSpecialChars(prices);
-        await savePrices({ metaInfo: p, prices: prices });
+        await savePrices(
+            { 
+                metaInfo: p, 
+                prices: getRidOfSpecialChars(prices)
+            }, 
+            db
+        );
     }
     
+    await db.close();
     await context.close();
     await browser.close();
 })();
