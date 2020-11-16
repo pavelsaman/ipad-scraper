@@ -40,7 +40,7 @@ const savePrices = async (priceObj) => {
 
 (async () => {
 
-    const browser = await puppeteer.launch(config.browserConfig.headless);
+    const browser = await puppeteer.launch(config.browserConfig);
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
 
