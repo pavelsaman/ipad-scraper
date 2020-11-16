@@ -1,0 +1,32 @@
+[
+    {
+        "company": "Alza",
+        "name": "iPad 2020",
+        "url": "https://www.alza.cz/ipad-2020/18881698.htm",
+        "priceEl": "div.priceInner > span.c2"
+    },
+    {
+        "company": "Alza",
+        "name": "iPad Pro 12.9",
+        "url": "https://www.alza.cz/ipad-pro-12-9/18858953.htm",
+        "priceEl": "div.priceInner > span.c2"
+    },
+    {
+        "company": "Alza",
+        "name": "iPad Pro 11",
+        "url": "https://www.alza.cz/ipad-pro-11/18867629.htm",
+        "priceEl": "div.priceInner > span.c2"
+    },
+    {
+        "company": "Datart",
+        "name": "iPad Pro",
+        "url": "https://www.datart.cz/ipad-pro.html?perPage=48",
+        "priceEl": "#products-list >* span.actual > span.tooltip.tooltipstered"
+    },
+    {
+        "company": "CZC",
+        "name": "iPad Pro 12.9\" 2020",
+        "url": "https://www.czc.cz/ipad-pro-12-9-2020-s-ipados/produkty",
+        "priceEl": ".price-vatin"
+    }
+]

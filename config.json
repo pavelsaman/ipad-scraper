@@ -1,0 +1,27 @@
+{
+    "browserConfig": {
+        "headless": {
+            "headless": true,
+            "args": [                
+                "--window-size=1920,1040"
+            ],
+            "defaultViewport": null
+        },
+        "gui": {
+            "headless": false,
+            "args": [                
+                "--start-maximized"     
+            ],
+            "defaultViewport": null            
+        },
+        "debug": {
+            "headless": false,
+            "args": [                
+                "--start-maximized"
+            ],
+            "defaultViewport": null,
+            "slowMo": 50,
+            "devtools": true          
+        }
+    }
+}
