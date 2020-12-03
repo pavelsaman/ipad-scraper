@@ -17,15 +17,15 @@ const getRidOfSpecialChars = (arr) => {
     return newArr;
 };
 
-const openDB = async function () {
-    return await sqlite.open({
+const openDB = () => {
+    return sqlite.open({
         filename: dbFile,
         driver: sqlite3.Database
     });
 };
 
-const savePrices = async (priceObj, db) => {    
-    for (let p of priceObj.prices) {
+const savePrices = async (priceObj, db) => {
+    for (const p of priceObj.prices) {
         await db.run(
             'INSERT INTO Prices (name, company, url, price, datetime) VALUES (?, ?, ?, ?, ?)',
             priceObj.metaInfo.name,
@@ -38,21 +38,20 @@ const savePrices = async (priceObj, db) => {
 }
 
 (async () => {
-
     const browser = await puppeteer.launch(config.browserConfig);
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
-
     const db = await openDB();
 
-    for (let p of pagesToScrape) {
+    for (const p of pagesToScrape) {
 
         await Promise.all([
             page.goto(p.url, { waitUntil: 'networkidle0' }),
             page.waitForSelector(p.priceEl)
         ]);        
 
-        let prices = await page.$$eval(p.priceEl, s => s.map(t => t.innerHTML));
+        const prices
+            = await page.$$eval(p.priceEl, s => s.map(t => t.innerHTML));
         await savePrices(
             { 
                 metaInfo: p, 
